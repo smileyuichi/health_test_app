@@ -12,7 +12,10 @@
   </head>
 
   <body>
-
+    <header>
+      <%= render 'diaries/navbar' %>
+      <%= render "layouts/flash_messages" %>
+    </header>
     <div class="base-container">
     <%= yield %>
     </div>

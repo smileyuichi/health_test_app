@@ -14,13 +14,18 @@
  *= require_self
  *= require flatpickr
  *= require flatpickr/themes/material_green
- */
+*/
 
- @import "bootstrap";
+@import "bootstrap";
+
+body{
+  margin: 60px 0;
+}
 
  // 全体
- .base-container {
-   @extend .container-fluid;
-   max-width: 768px;
-   padding: 1rem;
- }
+.base-container {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
