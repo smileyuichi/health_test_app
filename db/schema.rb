@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_131748) do
+ActiveRecord::Schema.define(version: 2020_07_21_090815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 2020_07_20_131748) do
     t.float "food_carbo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "nickname", null: false
+    t.integer "age", null: false
+    t.integer "active", null: false
+    t.float "height", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nickname"], name: "index_profiles_on_nickname", unique: true
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,5 +59,6 @@ ActiveRecord::Schema.define(version: 2020_07_20_131748) do
     t.index ["user_id"], name: "index_weights_on_user_id"
   end
 
+  add_foreign_key "profiles", "users"
   add_foreign_key "weights", "users"
 end
