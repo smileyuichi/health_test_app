@@ -1,0 +1,26 @@
+<h1>アカウント編集</h1>
+
+<%= form_with model:@profile, url: user_profiles_path(current_user.id), local: true do |f| %>
+    <div class="form-group">
+        <%= f.label :nickname, "【ニックネーム】16文字以内" , class: "control-label col-xs-2"%><small>必須</small>
+        <%= f.text_field :nickname, maxlength: 16,placeholder: @profile.nickname,class: "form-control", rows: "3" %>
+    </div>
+    <div class="form-group">
+        <%= f.label :age, "【年齢】" %><small>必須</small>
+        <%= f.number_field :age, placeholder: @profile.age, class: "form-control", in: 10..100, step:1, rows: "3" %>
+    </div>
+    <div class="form-group">
+        <%= f.label :height, "【身長】" %><small>必須</small>
+        <%= f.number_field :height ,placeholder: @profile.height, class: "form-control", min: 120, rows: "3" %>
+    </div>
+    <div class="form-group">
+        <%= f.label :active, "【運動頻度】" %><small>必須</small><br>
+        <%= f.select :active, [["ほぼ運動しない。通勤、デスクワーク程度", 0], ["軽い運動。週に1回〜2回程度の運動", 1], ["中程度の運動。週に3回〜5回程度の運動", 2], ["激しい運動。週に6回〜7回程度の運動", 3], ["非常に激しい運動。1日に2回程度の運動", 4]], include_blank: "選択して下さい", class: "form-control" %>
+    </div>
+    <div class="form-group">
+        <%= f.submit "編集する", class: "btn btn-primary btn-block" %>
+    </div>
+<% end %>
+
+<hr>
+<%= link_to "トップページに戻る", root_path, class: 'btn btn-success' %>
