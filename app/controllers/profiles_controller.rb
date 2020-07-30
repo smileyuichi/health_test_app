@@ -2,7 +2,17 @@ class ProfilesController < ApplicationController
 
     def show
         @profile = Profile.find_by(user_id: current_user.id)
-        @exercize_frequency = exercize_frequency
+        @exercize_frequency = exercize_frequency(@profile.active)
+    end
+
+    def new
+        @profile = Profile.new
+    end
+
+    def create
+        Profile.create!(profile_params)
+        flash[:notice] = "プロフィールを作成しました"
+        redirect_to root_path
     end
 
     def edit
@@ -13,7 +23,7 @@ class ProfilesController < ApplicationController
         @profile = Profile.find_by(user_id: current_user.id)
         @profile.update(profile_params)
         flash[:notice] = "プロフィールを変更しました"
-        redirect_to user_profiles_path(current_user.id)
+        redirect_to user_profile_path(current_user.id)
     end
 
 
@@ -21,12 +31,12 @@ class ProfilesController < ApplicationController
     private
 
     def profile_params
-        params.require(:profile).permit(:nickname, :age, :height, :active)
+        params.require(:profile).permit(:nickname, :age, :height, :active).merge(user_id: current_user.id)
     end
     
     # viewで活動状況を伝える為のメソッド
-    def exercize_frequency
-        case @profile.active
+    def exercize_frequency(active)
+        case active
         when 0 then
             return "ほぼ運動しない。通勤、デスクワーク程度"
         when 1 then

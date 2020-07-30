@@ -1,5 +1,11 @@
 <%= Gon::Base.render_data %>
-<p>こんにちは、<%= @user.email%>さん </p>
+<% if @user.profile.present? %>
+<p>こんにちは、<%= @user.profile.nickname %>さん </p>
+<% else %>
+<p><%= link_to "＼こんにちは！まずは、こちらからプロフィールを入力しましょう！／", new_user_profile_path(current_user.id) %></p>
+
+<% end %>
+
 <h1>Diaries#index</h1>
 <p>Find me in app/views/diaries/index.html.erb</p>
 

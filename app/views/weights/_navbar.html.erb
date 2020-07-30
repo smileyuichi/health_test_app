@@ -13,10 +13,14 @@
         <li class="nav-item active">
           <a class="nav-link" href="#">過去の履歴</a>
         </li>
-        <li class="nav-item active">
-          <%= link_to "プロフィール", user_profiles_path(current_user.id), class: "nav-link" %>
-        </li>
         <% if user_signed_in? %>
+          <li class="nav-item active">
+            <% if current_user.profile.present? %>
+              <%= link_to "プロフィール", user_profile_path(current_user.id), class: "nav-link" %>
+            <% else %>
+              <%= link_to "プロフィール", new_user_profile_path(current_user.id), class: "nav-link" %>
+            <% end %>
+          </li>
           <li class="nav-item active">
             <%= link_to "アカウント情報", edit_user_registration_path, class: "nav-link" %>
           </li>
