@@ -31,7 +31,7 @@ class ProfilesController < ApplicationController
     private
 
     def profile_params
-        params.require(:profile).permit(:nickname, :age, :height, :active).merge(user_id: current_user.id)
+        params.require(:profile).permit(:nickname, :age, :gender, :height, :active).merge(user_id: current_user.id)
     end
     
     # viewで活動状況を伝える為のメソッド

@@ -8,12 +8,12 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">今日の食事</a>
-        </li>
-        <li class="nav-item active">
           <a class="nav-link" href="#">過去の履歴</a>
         </li>
         <% if user_signed_in? %>
+          <li class="nav-item active">
+            <%= link_to "今日の食事", user_meals_path(current_user.id), class: "nav-link" %>
+          </li>
           <li class="nav-item active">
             <% if current_user.profile.present? %>
               <%= link_to "プロフィール", user_profile_path(current_user.id), class: "nav-link" %>

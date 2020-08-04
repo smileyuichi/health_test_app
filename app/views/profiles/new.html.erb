@@ -6,6 +6,17 @@
         <%= f.text_field :nickname, maxlength: 16,placeholder: @profile.nickname,class: "form-control", rows: "3" %>
     </div>
     <div class="form-group">
+        <%= f.label :gender, "【性別】" , class: "control-label col-xs-2"%><small>必須</small>
+        <div class="radio-inline">
+            <%= f.radio_button :gender, :男性 ,checked: "checked" %>
+            <%= f.label :男性, class: "job_type_label" %>
+        </div>
+        <div class="radio-inline">
+            <%= f.radio_button :gender, :女性 %>
+            <%= f.label :女性, class: "job_type_label" %>
+        </div>
+    </div>
+    <div class="form-group">
         <%= f.label :age, "【年齢】" %><small>必須</small>
         <%= f.number_field :age, placeholder: @profile.age, class: "form-control", in: 10..100, step:1, rows: "3" %>
     </div>

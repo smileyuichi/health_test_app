@@ -1,0 +1,44 @@
+<%= form_with model: @meal, url:user_meal_path(current_user.id, @meal.id), method: :patch do |form| %>
+    <div class="input-group col-8">
+        <div class="input-group-prepend">
+            <span class="input-group-text">日付</span>
+        </div>
+        <%= form.text_field :date, class: 'form-control bg-white', id: "new-meal-carender" %>
+    </div>
+    <small>20◯◯/◯◯/◯◯の形式でご記入ください</small>
+    <div class="input-group mt-3 col-8">
+        <div class="input-group-prepend">
+            <span class="input-group-text">料理名</span>
+        </div>
+        <%= form.text_field :meal_name, class: 'form-control', id: "new-meal-name", required: true %>
+    </div>
+    <small>小数第1位まで記録できます</small>
+    <div class="input-group mt-3 col-8">
+        <div class="input-group-prepend">
+            <span class="input-group-text">カロリー</span>
+        </div>
+        <%= form.number_field :calorie, class: 'form-control', id: "new-calorie", required: true %>kcal
+    </div>
+    <div class="input-group mt-3 col-8">
+        <div class="input-group-prepend">
+            <span class="input-group-text">タンパク質</span>
+        </div>
+        <%= form.number_field :protein, class: 'form-control', id: "new-protein", required: true %>g
+    </div>
+    <div class="input-group mt-3 col-8">
+        <div class="input-group-prepend">
+            <span class="input-group-text">脂質</span>
+        </div>
+        <%= form.number_field :fat, class: 'form-control', id: "new-fat", required: true %>g
+    </div>    
+    <div class="input-group mt-3 col-8">
+        <div class="input-group-prepend">
+            <span class="input-group-text">炭水化物</span>
+        </div>
+        <%= form.number_field :carbo, class: 'form-control', id: "new-carbo", required: true %>g
+    </div>
+    <div class="form-group mt-3">
+        <%= form.submit '編集する', class: 'btn btn-primary btn-block', id: 'new-button' %>
+        <%= form.submit '削除', name: '_destroy', class: 'btn btn-danger btn-block', id: 'destroy-button', data: { confirm: "本当に記録を削除しますか？" } %>
+    </div>
+<% end %>

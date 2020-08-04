@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_090815) do
+ActiveRecord::Schema.define(version: 2020_08_02_015639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,20 @@ ActiveRecord::Schema.define(version: 2020_07_21_090815) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "meals", force: :cascade do |t|
+    t.string "meal_name"
+    t.integer "calorie", null: false
+    t.float "protein", null: false
+    t.float "fat", null: false
+    t.float "carbo", null: false
+    t.integer "timing", null: false
+    t.date "date", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_meals_on_user_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "nickname", null: false
     t.integer "age", null: false
@@ -33,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_090815) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "gender", null: false
     t.index ["nickname"], name: "index_profiles_on_nickname", unique: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
@@ -55,10 +70,12 @@ ActiveRecord::Schema.define(version: 2020_07_21_090815) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "body_fat"
     t.index ["user_id", "date"], name: "index_weights_on_user_id_and_date", unique: true
     t.index ["user_id"], name: "index_weights_on_user_id"
   end
 
+  add_foreign_key "meals", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "weights", "users"
 end

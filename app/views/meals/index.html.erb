@@ -1,0 +1,74 @@
+<% $count_calorie = 0 %>
+<% $count_protein = 0 %>
+<% $count_fat = 0 %>
+<% $count_carbo = 0 %>
+<% $calc_age = @user_profile.age %>
+<% $calc_height = @user_profile.height %>
+<% $calc_active = @user_profile.active %>
+<% $calc_body_fat = @user_weight.body_fat %>
+<% $calc_weight = @user_weight.weight * (100 - $calc_body_fat) / 100 %>
+<% $bmr = 13.397*$calc_weight + 4.799*$calc_height-5.677*$calc_age+88.362 %>
+<% $tdee = $bmr * 1.75 %>
+<% $calc_protein = $calc_weight * 2 %>
+<% $calc_fat = $calc_weight * 0.9 %>
+<% $calc_carbo = ($tdee - $calc_protein*4 + $calc_fat*9) / 4 %>
+<h1>今日の食事</h1>
+<table class="table table-striped">
+    <thead class="thead-light">
+        <tr><th>料理名</th><th>カロリー</th><th>タンパク質</th><th>脂質</th><th>炭水化物</th><th>記録の修正</th></tr>
+    </thead>
+    <% @meals.each do |meal| %>
+    
+        <tr>
+            <td><%= meal.meal_name %></td>
+            <td><%= meal.calorie %>kcal</td>
+            <td><%= meal.protein %>g</td>
+            <td><%= meal.fat %>g</td>
+            <td><%= meal.carbo %>g</td>
+            <td><button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#edit-modal">
+            <%=link_to '修正', edit_user_meal_path(current_user.id, meal.id), class: 'text-reset text-decoration-none' %>
+            </button></td>
+        </tr>
+        <% $count_calorie += meal.calorie %>
+        <% $count_protein += meal.protein %>
+        <% $count_fat += meal.fat %>
+        <% $count_carbo += meal.carbo %>
+    <% end %>
+        <tr>
+            <td>摂取合計</td>
+            <td><%= $count_calorie %>kcal</td>
+            <td><%= $count_protein %>g</td>
+            <td><%= $count_fat %>g</td>
+            <td><%= $count_carbo %>g</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>今日の目標</td>
+            <td><%= $tdee.floor %>kcal</td>
+            <td><%= $calc_protein.floor %>g</td>
+            <td><%= $calc_fat.floor %>g</td>
+            <td><%= $calc_carbo.floor %>g</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>目標との差</td>
+            <td><%= $tdee.floor - $count_calorie %>kcal</td>
+            <td><%= ($calc_protein.floor - $count_protein).floor %>g</td>
+            <td><%= ($calc_fat.floor - $count_fat).floor %>g</td>
+            <td><%= ($calc_carbo.floor - $count_carbo).floor %>g</td>
+            <td></td>
+        </tr>
+    
+</table>
+
+<div class="row">
+  <div class="col-8">
+    <%# <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#new-modal">
+      新規登録
+    </button> %>
+    <%= link_to new_user_meal_path(current_user.id), class: 'btn btn-info btn-block' do %>
+    <span>新規登録</span>
+    <% end %>
+  </div>
+</div>
+

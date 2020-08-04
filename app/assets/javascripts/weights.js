@@ -51,9 +51,11 @@ document.addEventListener('turbolinks:load', () => {
         // 編集モーダルで日付を選択したときに，記録された体重を表示する関数
         const editCalendar = document.getElementById('edit-calendar')
         const editWeight = document.getElementById('edit-weight')
+        const editBodyFat = document.getElementById('edit-body-fat')
         const inputWeight = () => {
             let record = gon.weight_records.find((record) => record.date === editCalendar.value)
             editWeight.value = record.weight
+            editBodyFat.value = record.body_fat
         }
 
         // 記録編集用のカレンダー
