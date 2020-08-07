@@ -15,12 +15,13 @@
 <h1>今日の食事</h1>
 <table class="table table-striped">
     <thead class="thead-light">
-        <tr><th>料理名</th><th>カロリー</th><th>タンパク質</th><th>脂質</th><th>炭水化物</th><th>記録の修正</th></tr>
+        <tr><th>料理名</th><th>お気に入り</th><th>カロリー</th><th>タンパク質</th><th>脂質</th><th>炭水化物</th><th>記録の修正</th></tr>
     </thead>
     <% @meals.each do |meal| %>
     
         <tr>
             <td><%= meal.meal_name %></td>
+            <td></td>
             <td><%= meal.calorie %>kcal</td>
             <td><%= meal.protein %>g</td>
             <td><%= meal.fat %>g</td>
@@ -36,6 +37,7 @@
     <% end %>
         <tr>
             <td>摂取合計</td>
+            <td></td>
             <td><%= $count_calorie %>kcal</td>
             <td><%= $count_protein %>g</td>
             <td><%= $count_fat %>g</td>
@@ -44,6 +46,7 @@
         </tr>
         <tr>
             <td>今日の目標</td>
+            <td></td>
             <td><%= $tdee.floor %>kcal</td>
             <td><%= $calc_protein.floor %>g</td>
             <td><%= $calc_fat.floor %>g</td>
@@ -52,6 +55,7 @@
         </tr>
         <tr>
             <td>目標との差</td>
+            <td></td>
             <td><%= $tdee.floor - $count_calorie %>kcal</td>
             <td><%= ($calc_protein.floor - $count_protein).floor %>g</td>
             <td><%= ($calc_fat.floor - $count_fat).floor %>g</td>
@@ -60,15 +64,9 @@
         </tr>
     
 </table>
-
-<div class="row">
-  <div class="col-8">
     <%# <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#new-modal">
       新規登録
     </button> %>
-    <%= link_to new_user_meal_path(current_user.id), class: 'btn btn-info btn-block' do %>
-    <span>新規登録</span>
-    <% end %>
-  </div>
-</div>
-
+    <%= link_to "新規登録", new_user_meal_path(current_user.id), class: 'btn btn-info btn-block' %>
+<hr>
+    <%= link_to "すべてを削除", user_meals_path(current_user.id), method: :delete, data: { confirm: "本当に記録を削除しますか？" }, class: 'btn btn-danger btn-block' %>

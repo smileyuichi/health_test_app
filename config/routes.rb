@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :users do
     resource :profile ,only: %i[show edit update new create]
     resources :meals
+    delete :meals, to: 'meals#destroy_all'
   end
-  end
+end

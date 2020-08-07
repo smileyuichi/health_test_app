@@ -39,12 +39,18 @@ class MealsController < ApplicationController
         redirect_to user_meals_path
     end
 
+    def destroy_all
+        meals = Meal.where(user_id: params[:user_id])
+        meals.destroy_all
+        redirect_to user_meals_path
+    end
+
     private
 
     def meal_params
         params.require(:meal).permit(:meal_name, :calorie, :protein, :fat, :carbo, :date).merge(user_id: current_user.id, timing: 0)
     end
 
-    
+
 
 end
