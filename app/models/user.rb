@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :weights, dependent: :destroy
   has_one :profile, dependent: :destroy
   has_many :meals, dependent: :destroy
-  
-  # mealモデルを実装したら実装
-  # has_many :meals, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
 end

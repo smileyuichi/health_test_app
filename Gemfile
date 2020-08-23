@@ -21,6 +21,7 @@ gem 'devise-bootstrap-views', '~> 1.0'
 gem 'chart-js-rails'
 gem 'flatpickr'
 gem 'gon'
+gem 'font-awesome-sass'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

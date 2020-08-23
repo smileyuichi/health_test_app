@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_015639) do
+ActiveRecord::Schema.define(version: 2020_08_15_133610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "meal_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_favorites_on_meal_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
 
   create_table "foods", force: :cascade do |t|
     t.string "food_name"
@@ -47,7 +56,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_015639) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "gender", null: false
+    t.integer "gender"
     t.index ["nickname"], name: "index_profiles_on_nickname", unique: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
@@ -75,6 +84,8 @@ ActiveRecord::Schema.define(version: 2020_08_02_015639) do
     t.index ["user_id"], name: "index_weights_on_user_id"
   end
 
+  add_foreign_key "favorites", "meals"
+  add_foreign_key "favorites", "users"
   add_foreign_key "meals", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "weights", "users"

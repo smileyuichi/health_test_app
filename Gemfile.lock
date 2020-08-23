@@ -72,6 +72,8 @@ GEM
     execjs (2.7.0)
     ffi (1.13.1)
     flatpickr (4.6.3.1)
+    font-awesome-sass (5.13.0)
+      sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     gon (6.3.2)
@@ -215,6 +217,7 @@ DEPENDENCIES
   devise-bootstrap-views (~> 1.0)
   devise-i18n
   flatpickr
+  font-awesome-sass
   gon
   jbuilder (~> 2.5)
   jquery-rails

@@ -1,0 +1,14 @@
+<% @favorite_meals.each do |favorite| %>
+    <tr id = "new-favorite-button-<%= favorite.id %>">
+        <td class="align-middle"><%= favorite.meal.meal_name %></td>
+        <td class="align-middle">
+            <%= link_to user_meal_favorite_path(current_user.id, favorite.meal_id), method: :delete, data: { confirm: '消去しますか?', remote: true} do %>
+                <i class="fas fa-ban fa-lg ban-color"></i>
+            <% end %>
+        </td>
+        <td class="align-middle"><%= favorite.meal.calorie %>kcal</td>
+        <td class="align-middle"><%= favorite.meal.protein %>g</td>
+        <td class="align-middle"><%= favorite.meal.fat %>g</td>
+        <td class="align-middle"><%= favorite.meal.carbo %>g</td>
+    </tr>
+<% end %>

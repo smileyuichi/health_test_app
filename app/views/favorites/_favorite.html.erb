@@ -1,0 +1,9 @@
+<% if meal.meal_favorite_by?(current_user) %>                                            
+    <%= link_to user_meal_favorite_path(current_user.id, meal.id), method: :delete, remote: true do %>
+        <i class="fas fa-star fa-lg favorite-color"></i>
+    <% end %>
+<% else %>
+    <%= link_to user_meal_favorite_path(current_user.id, meal.id), method: :post, remote: true do %>
+        <i class="far fa-star fa-lg "></i>
+    <% end %>
+<% end %>

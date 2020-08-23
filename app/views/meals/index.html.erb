@@ -12,29 +12,26 @@
 <% $calc_protein = $calc_weight * 2 %>
 <% $calc_fat = $calc_weight * 0.9 %>
 <% $calc_carbo = ($tdee - $calc_protein*4 + $calc_fat*9) / 4 %>
-<h1>今日の食事</h1>
-<table class="table table-striped">
-    <thead class="thead-light">
-        <tr><th>料理名</th><th>お気に入り</th><th>カロリー</th><th>タンパク質</th><th>脂質</th><th>炭水化物</th><th>記録の修正</th></tr>
-    </thead>
-    <% @meals.each do |meal| %>
-    
-        <tr>
-            <td><%= meal.meal_name %></td>
-            <td></td>
-            <td><%= meal.calorie %>kcal</td>
-            <td><%= meal.protein %>g</td>
-            <td><%= meal.fat %>g</td>
-            <td><%= meal.carbo %>g</td>
-            <td><button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#edit-modal">
-            <%=link_to '修正', edit_user_meal_path(current_user.id, meal.id), class: 'text-reset text-decoration-none' %>
-            </button></td>
-        </tr>
-        <% $count_calorie += meal.calorie %>
-        <% $count_protein += meal.protein %>
-        <% $count_fat += meal.fat %>
-        <% $count_carbo += meal.carbo %>
-    <% end %>
+<% if params[:date].blank? || params[:date] == Date.today %>
+    <h1 class="text-center">今日の食事</h1>
+<% else %>
+    <h1 class="text-center"><%= l params[:date].to_date, format: :short %>の食事</h1>
+<% end %>
+<div class="input-group col-sm-6 pr-sm-3 mt-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">日付</span>
+    </div>
+<%= form_with model: @meal, url: user_meals_path, method: :get, local: true do |form| %>
+    <%= form.text_field :date ,id: "meal-calendar" %>
+    <%= form.submit '表示する', id: "update-table" %>
+<% end %>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped text-center">
+        <thead class="thead-light">
+            <tr><th>料理名</th><th>お気に入り</th><th>カロリー</th><th>タンパク質</th><th>脂質</th><th>炭水化物</th><th>記録の修正</th></tr>
+        </thead>
+            <%= render partial: 'meals/table', locals: { meal: @meals} %>
         <tr>
             <td>摂取合計</td>
             <td></td>
@@ -56,17 +53,33 @@
         <tr>
             <td>目標との差</td>
             <td></td>
-            <td><%= $tdee.floor - $count_calorie %>kcal</td>
-            <td><%= ($calc_protein.floor - $count_protein).floor %>g</td>
-            <td><%= ($calc_fat.floor - $count_fat).floor %>g</td>
-            <td><%= ($calc_carbo.floor - $count_carbo).floor %>g</td>
+            <% if $count_calorie - $tdee.floor > 0 %>
+                <td style="color:green;">+<%= $count_calorie - $tdee.floor %>kcal</td>
+            <% else %>
+                <td style="color:red;" ><%= $count_calorie - $tdee.floor %>kcal</td>
+            <% end %>
+
+            <% if $count_protein - $calc_protein.floor > 0 %>
+                <td style="color:green;">+<%= ($count_protein - $calc_protein.floor).floor %>g</td>
+            <% else %>
+                <td style="color:red;" ><%= ($count_protein - $calc_protein.floor).floor %>g</td>
+            <% end %>
+
+            <% if $count_fat - $calc_fat.floor > 0 %>
+            <td style="color:green;">+<%= ($count_fat - $calc_fat.floor).floor %>g</td>
+            <% else %>
+            <td style="color:red;" ><%= ($count_fat - $calc_fat.floor).floor %>g</td>
+            <% end %>
+            
+            <% if $count_carbo - $calc_carbo.floor > 0 %>
+            <td style="color:green;">+<%= ($count_carbo - $calc_carbo.floor).floor %>g</td>
+            <% else %>
+            <td style="color:red;" ><%= ($count_carbo - $calc_carbo.floor).floor %>g</td>
+            <% end %>
+
             <td></td>
-        </tr>
-    
-</table>
-    <%# <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#new-modal">
-      新規登録
-    </button> %>
-    <%= link_to "新規登録", new_user_meal_path(current_user.id), class: 'btn btn-info btn-block' %>
-<hr>
-    <%= link_to "すべてを削除", user_meals_path(current_user.id), method: :delete, data: { confirm: "本当に記録を削除しますか？" }, class: 'btn btn-danger btn-block' %>
+        </tr>    
+    </table>
+</div>
+    <%= link_to "新規登録", new_user_meal_path(current_user.id), class: 'btn btn-primary btn-block' %>
+

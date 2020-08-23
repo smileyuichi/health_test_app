@@ -1,5 +1,5 @@
 class WeightsController < ApplicationController
-  def index
+  def show
     gon.weight_records = Weight.chart_data(current_user)
     gon.recorded_dates = current_user.weights.map(&:date)
     @user = User.find(current_user.id)

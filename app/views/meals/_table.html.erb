@@ -1,0 +1,20 @@
+<% @meals.each do |meal| %>
+    <tr id = "meal-<%= meal.date %>">
+        <td class="align-middle"><%= meal.meal_name %></td>
+        <td class="text-center align-middle" id="favorite-button-<%= meal.id %>">
+            <%= render partial: 'favorites/favorite', locals: { meal: meal} %>
+        </td>
+
+        <td class="align-middle"><%= meal.calorie %>kcal</td>
+        <td class="align-middle"><%= meal.protein %>g</td>
+        <td class="align-middle"><%= meal.fat %>g</td>
+        <td class="align-middle"><%= meal.carbo %>g</td>
+        <td><button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#edit-modal">
+        <%=link_to '修正', edit_user_meal_path(current_user.id, meal.id), class: 'text-reset text-decoration-none' %>
+        </button></td>
+    </tr>
+    <% $count_calorie += meal.calorie %>
+    <% $count_protein += meal.protein %>
+    <% $count_fat += meal.fat %>
+    <% $count_carbo += meal.carbo %>
+<% end %>

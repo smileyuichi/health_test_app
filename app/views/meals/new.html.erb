@@ -1,9 +1,11 @@
-<%= form_with model: @meal, url:user_meals_path, method: :post do |form| %>
+
+<%= form_with model: @meal, url:user_meals_path, method: :post, local: true do |form| %>
     <div class="input-group col-8">
         <div class="input-group-prepend">
             <span class="input-group-text">日付</span>
         </div>
-        <%= form.text_field :date, class: 'form-control bg-white', id: "new-meal-carender" %>
+        
+        <%= form.text_field :date, class: 'form-control bg-white', id: "new-meal-carendar" %>
     </div>
     <small>20◯◯/◯◯/◯◯の形式でご記入ください</small>
     <div class="input-group mt-3 col-8">
@@ -11,13 +13,6 @@
             <span class="input-group-text">料理名</span>
         </div>
         <%= form.text_field :meal_name, class: 'form-control', id: "new-meal-name", required: true %>
-    </div>
-    <small>小数第1位まで記録できます</small>
-    <div class="input-group mt-3 col-8">
-        <div class="input-group-prepend">
-            <span class="input-group-text">カロリー</span>
-        </div>
-        <%= form.number_field :calorie, class: 'form-control', id: "new-calorie", required: true %>kcal
     </div>
     <div class="input-group mt-3 col-8">
         <div class="input-group-prepend">
@@ -43,3 +38,13 @@
 <% end %>
 <hr>
 <%= link_to "今日の食事一覧に戻る", user_meals_path(current_user.id), class: 'btn btn-info btn-block' %>
+
+<h1 class="text-center">お気に入りの食事</h1>
+<div class="table-responsive">
+    <table class="table table-striped text-center">
+        <thead class="thead-light">
+            <tr><th>料理名</th><th>お気に入り</th><th>カロリー</th><th>タンパク質</th><th>脂質</th><th>炭水化物</th></tr>
+        </thead>
+        <%= render partial: 'meals/new_edit_table' %>
+    </table>
+</div>

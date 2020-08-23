@@ -1,0 +1,4 @@
+$('#favorite-button-<%= @meal.id %>').html("<%= j(render partial: 'favorites/favorite', locals: {meal: @meal}) %>");
+
+
+document.getElementById("new-favorite-button-<%= @favorite.id %>").outerHTML="";
