@@ -9,6 +9,10 @@ class MealsController < ApplicationController
         user = User.find(current_user.id)
         @user_weight = user.weights.find_by(date: Date.today)
         @user_profile = user.profile
+
+        gon.calorie_records = Meal.chart_data(current_user)
+        # gon.chart_label = ['8/16', '8/18', '8/19', '8/20', '8/21', '8/22', '8/23']
+        # gon.chart_data = [30, 560, 460, 0, 660, 400, 500]
         
     end
 

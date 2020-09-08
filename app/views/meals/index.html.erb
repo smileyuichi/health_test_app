@@ -1,3 +1,4 @@
+<%= Gon::Base.render_data %>
 <% $count_calorie = 0 %>
 <% $count_protein = 0 %>
 <% $count_fat = 0 %>
@@ -81,5 +82,5 @@
         </tr>    
     </table>
 </div>
-    <%= link_to "新規登録", new_user_meal_path(current_user.id), class: 'btn btn-primary btn-block' %>
-
+<%= link_to "新規登録", new_user_meal_path(current_user.id), class: 'btn btn-primary btn-block' %>
+<canvas id="calorieChart" class="mt-5" ></canvas>
